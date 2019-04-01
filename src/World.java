@@ -5,62 +5,30 @@ import org.newdawn.slick.SlickException;
 import java.util.LinkedList;
 
 public class World {
-
-    Obstacle obstaculo = new Obstacle();
     private LinkedList<Obstacle> listaObstaculos = new LinkedList<Obstacle>();
 
-
-
-    public void World(){
-
-        for (int i = 0; i < 10; i++) {
-            listaObstaculos.push(obstaculo);
-        }
-
-
-
-
-
+    void World(){
+        Obstacle o = new Obstacle();
+        listaObstaculos.push(o);
     }
 
 
     public void update(GameContainer gameContainer,int i) throws SlickException{
-        obstaculo.update(gameContainer,i);
-
-        if (obstaculo.y == 300){
-            obstaculo.update(gameContainer,i);
-
+        for (int j = 0; j < listaObstaculos.size(); j++) {
+            listaObstaculos.get(i).update();
         }
-
-
-
-        if (obstaculo.y > 600){
-            obstaculo.y = -5;
-            listaObstaculos.push(obstaculo);
-        }
-
 
 
     }
 
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException{
 
-        obstaculo.render(gameContainer,graphics);
+
+        listaObstaculos.getLast().render();
 
 
-        if (obstaculo.y == 300){
-            obstaculo.render(gameContainer,graphics);
-        }
-
-
-
-            graphics.draw(obstaculo.r);
-            graphics.draw(obstaculo.r2);
-
-
-
-
-
+        graphics.draw(listaObstaculos.peekLast().r);
+        graphics.draw(listaObstaculos.peekLast().r2);
 
 
     }

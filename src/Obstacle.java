@@ -17,13 +17,13 @@ public class Obstacle {
 
     }
 
-    public void update(GameContainer gameContainer, int i) {
+    public void update() {
         //Velocitat de l'obstacle
         y += 4;
 
     }
 
-    public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
+    public void render() throws SlickException {
 
         //Cream l'obstacle, que consisteix en dos rectangules amb un espaiat entre els dos
         r = new Rectangle(0, y, width1, 6);
