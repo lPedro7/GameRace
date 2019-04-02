@@ -37,7 +37,7 @@ public class GameRace extends BasicGame {
     @Override
     public void update(GameContainer gameContainer, int i) throws SlickException {
         p.update(gameContainer,i);
-        w.update(gameContainer,i);
+        w.update(gameContainer);
     }
     //Aquest mètode fara un override dibuixarà els frames de joc per cada FPS
     @Override

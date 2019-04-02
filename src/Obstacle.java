@@ -8,28 +8,33 @@ public class Obstacle {
 
     Rectangle r;
     Rectangle r2;
-    int y = 0;
-    int width1 = (int) (Math.random()*800);
-    int yRect2 = 1000-width1-200;
+    static int separacion=200;
+    float y ;
+    int width1;
+    int width2 = 1000-this.width1-200;
 
-    public Obstacle() {
+    public Obstacle(float y) {
 
-
-    }
-
-    public void update() {
-        //Velocitat de l'obstacle
-        y += 4;
+        this.y=y;
+        this.width1 =  (int) (Math.random()*800);;
 
     }
 
-    public void render() throws SlickException {
+
+    public void render(Graphics g, GameContainer gc) throws SlickException {
 
         //Cream l'obstacle, que consisteix en dos rectangules amb un espaiat entre els dos
-        r = new Rectangle(0, y, width1, 6);
-        r2 = new Rectangle(width1+200,y,1000-width1-200,6);
+        r = new Rectangle(0,this.y,width1,6);
+        r2 = new Rectangle(this.width1+separacion,this.y,width2,6);
+
+        g.draw(r);
+        g.draw(r2);
+    }
 
 
+
+    public void bajarObs(float aumento){
+        this.y+=aumento;
     }
 
 }
