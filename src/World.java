@@ -6,7 +6,9 @@ import java.util.LinkedList;
 
 public class World {
     private LinkedList<Obstacle> listaObstaculos = new LinkedList<Obstacle>();
-
+    int score = 0;
+    float velocidad = 2;
+    float distanciaEntreObstacles = 240;
     World() {
         crearObstaculosIniciales();
     }
@@ -16,7 +18,7 @@ public class World {
 
 
         for (int j = 0; j < listaObstaculos.size();  j++) {
-            listaObstaculos.get(j).bajarObs(2);
+            listaObstaculos.get(j).bajarObs(velocidad);
 
             if (listaObstaculos.getLast().y >= 240){
                 crearObstaculosIniciales();
@@ -30,6 +32,8 @@ public class World {
 
 
 
+        score++;
+
     }
 
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
@@ -41,6 +45,10 @@ public class World {
                 listaObstaculos.get(i).render(graphics,gameContainer);
             }
         }
+
+        velocidad+=0.001;
+        distanciaEntreObstacles += 0.02;
+
     }
 
 
@@ -52,7 +60,7 @@ public class World {
 
         for (int i = 0; i < 10; i++) {
             o = new Obstacle(posicion);
-            posicion-=240;
+            posicion-=distanciaEntreObstacles;
             listaObstaculos.add(o);
 
         }

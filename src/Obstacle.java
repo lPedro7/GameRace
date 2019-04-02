@@ -2,16 +2,18 @@ import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Obstacle {
 
     Rectangle r;
     Rectangle r2;
-    static int separacion=200;
+    private int separacion=200;
     float y ;
     int width1;
     int width2 = 1000-this.width1-200;
+    float distanciaEntreObstacles = 240;
 
     public Obstacle(float y) {
 
@@ -36,5 +38,11 @@ public class Obstacle {
     public void bajarObs(float aumento){
         this.y+=aumento;
     }
+
+
+    public void interseccion(Circle c){
+
+    }
+
 
 }
