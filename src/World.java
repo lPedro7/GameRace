@@ -5,8 +5,8 @@ import org.newdawn.slick.SlickException;
 import java.util.LinkedList;
 
 public class World {
-    private LinkedList<Obstacle> listaObstaculos = new LinkedList<Obstacle>();
-    int score = 0;
+    static LinkedList<Obstacle> listaObstaculos = new LinkedList<Obstacle>();
+    int sc = Player.score;
     float velocidad = 2;
     float distanciaEntreObstacles = 240;
     World() {
@@ -31,10 +31,12 @@ public class World {
         }
 
 
+        sc++;
 
-        score++;
 
     }
+
+
 
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
 

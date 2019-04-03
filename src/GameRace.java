@@ -6,12 +6,13 @@ public class GameRace extends BasicGame {
     Player p;
     World w;
     public static final String gamename = "GTA VI";
-    Music mainMusic;
+    static Music mainMusic;
+    static int highscore = 0;
 
-
+//Constructor del GameRace i definim canço i el titol
     public GameRace(String title) throws SlickException {
         super(title);
-        mainMusic = new Music("/assets/Tetris.ogg");
+        mainMusic = new Music("/src/assets/Tetris.ogg");
     }
 
     public static void main(String[] args) throws SlickException {
@@ -35,13 +36,19 @@ public class GameRace extends BasicGame {
         w = new World();
         mainMusic.play();
 
+        if (!mainMusic.playing()){
+            mainMusic.loop();
+        }
+
     }
 
     //Aquest metode fa un override i mantindrà actualitzat el joc
     @Override
     public void update(GameContainer gameContainer, int i) throws SlickException {
-        p.update(gameContainer, i);
-        w.update(gameContainer);
+        if (!gameContainer.isPaused()) {
+            w.update(gameContainer);
+            p.update(gameContainer, i);
+        }
 
 
 
@@ -50,10 +57,10 @@ public class GameRace extends BasicGame {
     //Aquest mètode fara un override dibuixarà els frames de joc per cada FPS
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        p.render(gameContainer, graphics);
         w.render(gameContainer, graphics);
+        p.render(gameContainer, graphics);
 
-        //  mainMusic.setVolume(1);
+
 
     }
 }

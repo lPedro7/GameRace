@@ -4,13 +4,15 @@ import org.newdawn.slick.geom.Circle;
 //Definirem el jugador
 public class Player {
     //puntuació del jugador
-    int score = 0;
+    static int score = 0;
     //Altura del jugador
     int y = 500;
     //Posicio horitzontal del jugador
     int x = 550;
     //Icona del personatge
     private Image img;
+
+    static Circle c;
 
     float velocidad = 10;
 
@@ -34,23 +36,47 @@ public class Player {
 
         score++;
 
-        velocidad += 0.001;
+        velocidad += 0.002;
 
     }
 
     void render(GameContainer gameContainer, Graphics graphics){
         //Mostram la puntiació del jugador
         graphics.drawString("Score : " + score,750,10);
+        graphics.drawString("Highscore : " + GameRace.highscore,750,20);
         //Cream el personatge
-        Circle c = new Circle(0,0,25,50);
+        c = new Circle(0,0,25,50);
         //Definim la seva posició
         c.setX(x);
         c.setY(y);
         //Dibuixam a l'usuari
         graphics.draw(c);
 
+try {
+    if (c.intersects(World.listaObstaculos.getFirst().r) || c.intersects(World.listaObstaculos.getFirst().r2)) {
+        gameContainer.pause();
+        Input in = gameContainer.getInput();
+        GameRace.mainMusic.stop();
+        graphics.drawString("Game Over press R to restart or ESC to exit",350,300);
+        graphics.drawString("Your score is " + score,350,305);
+        if (score>GameRace.highscore){
+            GameRace.highscore=score;
+        }
+        score=0;
+        if (in.isKeyPressed(Input.KEY_R)){
+            World.listaObstaculos.clear();
+            System.out.println("pulsando R");
+            gameContainer.resume();
+            gameContainer.reinit();
+        }
+
+        if (in.isKeyPressed(Input.KEY_ESCAPE)){
+            gameContainer.exit();
+        }
 
 
+    }
+}catch (Exception e){}
     }
 
 
