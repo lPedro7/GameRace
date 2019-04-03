@@ -35,10 +35,7 @@ public class GameRace extends BasicGame {
         //Definim un nou mon
         w = new World();
         mainMusic.play();
-
-        if (!mainMusic.playing()){
-            mainMusic.loop();
-        }
+        mainMusic.loop();
 
     }
 

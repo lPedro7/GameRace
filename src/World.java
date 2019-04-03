@@ -20,7 +20,7 @@ public class World {
         for (int j = 0; j < listaObstaculos.size();  j++) {
             listaObstaculos.get(j).bajarObs(velocidad);
 
-            if (listaObstaculos.getLast().y >= 240){
+            if (listaObstaculos.getLast().y >= 260){
                 crearObstaculosIniciales();
             }
 
@@ -49,7 +49,7 @@ public class World {
         }
 
         velocidad+=0.001;
-        distanciaEntreObstacles += 0.02;
+        distanciaEntreObstacles += 0.01;
 
     }
 

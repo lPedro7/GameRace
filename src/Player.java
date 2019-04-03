@@ -16,11 +16,11 @@ public class Player {
 
     float velocidad = 10;
 
-    void update(GameContainer gameContainer, int i){
+    void update(GameContainer gameContainer, int i) {
         //Si l'usuari pressiona un botó
         Input input = gameContainer.getInput();
         //En cas de que sigui fletxa a l'esquerra o A es moura 4 pixels a l'esquerra
-        if ((input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)) && x >= 0){
+        if ((input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)) && x >= 0) {
             x -= velocidad;
         }
         //En cas de que sigui fletxa a la dreta o D es moura 4 pixels a la dreta
@@ -28,10 +28,9 @@ public class Player {
             x += velocidad;
         }
 
-        if (input.isKeyDown(Input.KEY_ESCAPE)){
+        if (input.isKeyDown(Input.KEY_ESCAPE)) {
             gameContainer.exit();
         }
-
 
 
         score++;
@@ -40,12 +39,12 @@ public class Player {
 
     }
 
-    void render(GameContainer gameContainer, Graphics graphics){
+    void render(GameContainer gameContainer, Graphics graphics) {
         //Mostram la puntiació del jugador
-        graphics.drawString("Score : " + score,750,10);
-        graphics.drawString("Highscore : " + GameRace.highscore,750,20);
+        graphics.drawString("Score : " + score, 750, 10);
+        graphics.drawString("Highscore : " + GameRace.highscore, 750, 30);
         //Cream el personatge
-        c = new Circle(0,0,25,50);
+        c = new Circle(0, 0, 25, 50);
         //Definim la seva posició
         c.setX(x);
         c.setY(y);
@@ -58,16 +57,16 @@ try {
         Input in = gameContainer.getInput();
         GameRace.mainMusic.stop();
         graphics.drawString("Game Over press R to restart or ESC to exit",350,300);
-        graphics.drawString("Your score is " + score,350,305);
+        graphics.drawString("Your score is " + score,350,375);
         if (score>GameRace.highscore){
             GameRace.highscore=score;
         }
-        score=0;
         if (in.isKeyPressed(Input.KEY_R)){
             World.listaObstaculos.clear();
             System.out.println("pulsando R");
             gameContainer.resume();
             gameContainer.reinit();
+            score=0;
         }
 
         if (in.isKeyPressed(Input.KEY_ESCAPE)){
@@ -77,8 +76,8 @@ try {
 
     }
 }catch (Exception e){}
+
+
+
     }
-
-
-
 }
