@@ -9,38 +9,37 @@ public class Player {
     int y = 500;
     //Posicio horitzontal del jugador
     int x = 550;
-    //Icona del personatge
-    private Image img;
-
+    //Jugador
     static Circle c;
-
+    //Velocitat actual del jugador
     float velocidad = 10;
 
+    //Definim els controls que tindrà el jugador
     void update(GameContainer gameContainer, int i) {
         //Si l'usuari pressiona un botó
         Input input = gameContainer.getInput();
-        //En cas de que sigui fletxa a l'esquerra o A es moura 4 pixels a l'esquerra
+        //En cas de que sigui fletxa a l'esquerra o A es moura la velocitat definida a la esquerra
         if ((input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)) && x >= 0) {
             x -= velocidad;
         }
-        //En cas de que sigui fletxa a la dreta o D es moura 4 pixels a la dreta
+        //En cas de que sigui fletxa a la dreta o D es moura la velocitat definida a la dreta
         if ((input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) && x <= 950) {
             x += velocidad;
         }
-
+        //Si pulsam ESC , sortim del joc
         if (input.isKeyDown(Input.KEY_ESCAPE)) {
             gameContainer.exit();
         }
 
-
+        //La puntuació s'incrementa cada vegada que actualitzam el joc
         score++;
-
+        //La velocitat aumenta gradualment segons avançam
         velocidad += 0.002;
 
     }
 
     void render(GameContainer gameContainer, Graphics graphics) {
-        //Mostram la puntiació del jugador
+        //Mostram la puntuació del jugador
         graphics.drawString("Score : " + score, 750, 10);
         graphics.drawString("Highscore : " + GameRace.highscore, 750, 30);
         //Cream el personatge
@@ -51,33 +50,47 @@ public class Player {
         //Dibuixam a l'usuari
         graphics.draw(c);
 
-try {
-    if (c.intersects(World.listaObstaculos.getFirst().r) || c.intersects(World.listaObstaculos.getFirst().r2)) {
-        gameContainer.pause();
-        Input in = gameContainer.getInput();
-        GameRace.mainMusic.stop();
-        graphics.drawString("Game Over press R to restart or ESC to exit",350,300);
-        graphics.drawString("Your score is " + score,350,375);
-        if (score>GameRace.highscore){
-            GameRace.highscore=score;
+        //Feim la situació de intersecció entre el jugador i un obstacle, feim un try, perque esteim fent la comprovació
+        //De que si el jugador intersecta amb el primer obstacle de la llista d'obstacles, al començament del joc, la
+        //llista està buida, i ens donaria una excepció de NullPointerException
+        try {
+            //Comprovam si el jugador intersecta amb el primer o segon rectangle de l'obstacle
+            if (c.intersects(World.listaObstaculos.getFirst().r) || c.intersects(World.listaObstaculos.getFirst().r2)) {
+                //Si hi ha colisió pausam el joc
+                gameContainer.pause();
+                //Podem rebre un input, que serà o R o ESC
+                Input in = gameContainer.getInput();
+                //Pausam la musica
+                GameRace.mainMusic.stop();
+                //Notificam el Game Over
+                graphics.drawString("Game Over", 350, 300);
+                graphics.drawString("Press R to restart or ESC to exit", 350, 335);
+                graphics.drawString("Your score is " + score, 350, 370);
+
+                //Si la puntuació actual és major a la màxima puntuació, la nostra puntuació sera la nova màxima
+                if (score > GameRace.highscore) {
+                    GameRace.highscore = score;
+                }
+                //Si pulsam R reiniciam el joc
+                if (in.isKeyPressed(Input.KEY_R)) {
+                    //Llevam tots els obstacles
+                    World.listaObstaculos.clear();
+                    //Reanudam el joc
+                    gameContainer.resume();
+                    //Tornam a cridar a init per començar el joc
+                    gameContainer.reinit();
+                    //Retornam la puntuacio a 0
+                    score = 0;
+                }
+                //Si pulsam ESC sortim del joc
+                if (in.isKeyPressed(Input.KEY_ESCAPE)) {
+                    gameContainer.exit();
+                }
+
+
+            }
+        } catch (Exception e) {
         }
-        if (in.isKeyPressed(Input.KEY_R)){
-            World.listaObstaculos.clear();
-            System.out.println("pulsando R");
-            gameContainer.resume();
-            gameContainer.reinit();
-            score=0;
-        }
-
-        if (in.isKeyPressed(Input.KEY_ESCAPE)){
-            gameContainer.exit();
-        }
-
-
-    }
-}catch (Exception e){}
-
-
 
     }
 }
