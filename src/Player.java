@@ -41,7 +41,7 @@ public class Player {
     void render(GameContainer gameContainer, Graphics graphics) {
         //Mostram la puntuació del jugador
         graphics.drawString("Score : " + score, 750, 10);
-        graphics.drawString("Highscore : " + GameRace.highscore, 750, 30);
+        graphics.drawString("Highscore : " + RaceGame.highscore, 750, 30);
         //Cream el personatge
         c = new Circle(0, 0, 25, 50);
         //Definim la seva posició
@@ -61,15 +61,15 @@ public class Player {
                 //Podem rebre un input, que serà o R o ESC
                 Input in = gameContainer.getInput();
                 //Pausam la musica
-                GameRace.mainMusic.stop();
+                RaceGame.mainMusic.stop();
                 //Notificam el Game Over
                 graphics.drawString("Game Over", 350, 300);
                 graphics.drawString("Press R to restart or ESC to exit", 350, 335);
                 graphics.drawString("Your score is " + score, 350, 370);
 
                 //Si la puntuació actual és major a la màxima puntuació, la nostra puntuació sera la nova màxima
-                if (score > GameRace.highscore) {
-                    GameRace.highscore = score;
+                if (score > RaceGame.highscore) {
+                    RaceGame.highscore = score;
                 }
                 //Si pulsam R reiniciam el joc
                 if (in.isKeyPressed(Input.KEY_R)) {
