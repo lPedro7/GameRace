@@ -8,14 +8,14 @@ public class Player {
     //Altura del jugador
     int y = 500;
     //Posicio horitzontal del jugador
-    int x = 550;
+    int x = 450;
     //Jugador
     static Circle c;
     //Velocitat actual del jugador
     float velocidad = 10;
 
     //Definim els controls que tindrà el jugador
-    void update(GameContainer gameContainer, int i) {
+    void update(GameContainer gameContainer) {
         //Si l'usuari pressiona un botó
         Input input = gameContainer.getInput();
         //En cas de que sigui fletxa a l'esquerra o A es moura la velocitat definida a la esquerra
